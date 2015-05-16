@@ -1,6 +1,6 @@
---*******----\
+--*******-----\
 -- <ALU.VHD> --
---*******----/
+--*******-----/
 
 library IEEE;
 use ieee.std_logic_1164.all;
@@ -34,10 +34,7 @@ begin
 				result <= a or b;
 			when "100111" => -- NOR funcode=0x27
 				result <= a nor b;
-			when others =>
-				--assdcsx;
 		end case;
-		
 	else	
 		
 		
