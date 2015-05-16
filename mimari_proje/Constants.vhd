@@ -2,7 +2,6 @@
 -- <CONSTANTS.VHD> -- 
 --***************----/
 
-
 package Constants is
 
 --global

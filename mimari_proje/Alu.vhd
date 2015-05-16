@@ -16,35 +16,35 @@ entity Alu is
 end Alu;
 
 
-
-
 architecture Behavioral of Alu is
 begin
 	
 process(a, b, opcode, funcode)
 begin
 	
-	if(opcode = "000000") then
-		
+	if(opcode = "000000") then	
 		case funcode is
-			when "100000" => --ADD funcode=0x20
-				result <= std_logic_vector(unsigned(a) + unsigned(b));
-		
-			when "10 0100" => --AND funcode=0x24
+			when "100000" => -- ADD funcode=0x20
+				result <= std_logic_vector(unsigned(a) + unsigned(b));		
+			when "100010" => -- SUB funcode=0x22
+				result <= std_logic_vector(unsigned(a) - unsigned(b));
+			when "100100" => -- AND funcode=0x24
 				result <= a and b;
-				
-		    
-				
-			when "100111" => --NOR funcode=0x27
+			when "100101" => -- OR funcode=0x25	
+				result <= a or b;
+			when "100111" => -- NOR funcode=0x27
 				result <= a nor b;
-			
-			
-			
 			when others =>
 				--assdcsx;
-	    end case;
+		end case;
 		
-    end if;
+	else	
+		
+		
+	end if;
+	 
+
+	
 	
 end process;
 
