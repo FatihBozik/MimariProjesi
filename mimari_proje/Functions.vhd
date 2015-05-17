@@ -6,9 +6,7 @@
 --
 --package Functions is
 --
---function T(a: in std_logic_vector; b: in std_logic_vector ) return std_logic_vector;
---	
---function Andi(a: in std_logic_vector; b: in std_logic_vector ) return std_logic_vector;
+--procedure clearReg(r : in register_array);
 --	
 --end package Functions;
 --
@@ -16,17 +14,9 @@
 --
 --package body Functions is
 --
---function Topla(a: in std_logic_vector; b: in std_logic_vector ) return std_logic_vector is 
+--procedure clearReg(r : in register_array) is
 --begin
---	return std_logic_vector(unsigned(a) + unsigned(b));
---end Topla;
---
---function f_And(a: in std_logic_vector; b: in std_logic_vector ) return std_logic_vector is 
---begin
---	return (a and b);
---end f_And;
---
---
+--	
+--end clearReg;
 --
 --end package body Functions;
---

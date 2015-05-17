@@ -1,48 +1,50 @@
---*******-----\
--- <ALU.VHD> --
---*******-----/
-
-library IEEE;
-use ieee.std_logic_1164.all;
+library ieee;
 use ieee.numeric_std.all;
 use work.Constants.all;
+use ieee.std_logic_1164.all;
+
+package Alu is
+
+--function function_Name(parameter list) return type;
+function function_Add(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector;
+function function_Sub(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector;	
+function function_And(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector;
+function function_Or(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector;
+function function_Nor(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector;
+	
+end package Alu;
 
 
-entity Alu is
-       port( a, b : in std_logic_vector(width-1 downto 0); 
-  			 result : out std_logic_vector(width-1 downto 0);
-  			 opcode, funcode : in std_logic_vector(5 downto 0)
-  		   );
-end Alu;
+package body Alu is
 
-
-architecture Behavioral of Alu is
+--function function_Name(parameter list) return type is 
+--begin
+--	 
+--end function_Add;
+function function_Add(data1: in std_logic_vector; data2: in std_logic_vector) return std_logic_vector is 
 begin
-	
-process(a, b, opcode, funcode)
+	return std_logic_vector(unsigned(data1) + unsigned(data2));
+end function_Add;
+
+function function_Sub(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector is 
 begin
-	
-	if(opcode = "000000") then	
-		case funcode is
-			when "100000" => -- ADD funcode=0x20
-				result <= std_logic_vector(unsigned(a) + unsigned(b));		
-			when "100010" => -- SUB funcode=0x22
-				result <= std_logic_vector(unsigned(a) - unsigned(b));
-			when "100100" => -- AND funcode=0x24
-				result <= a and b;
-			when "100101" => -- OR funcode=0x25	
-				result <= a or b;
-			when "100111" => -- NOR funcode=0x27
-				result <= a nor b;
-		end case;
-	else	
-		
-		
-	end if;
-	 
+	return std_logic_vector(unsigned(data1) - unsigned(data2));
+end function_Sub;
 
-	
-	
-end process;
+function function_And(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector is 
+begin
+	return (data1 and data2);
+end function_And;
 
-end Behavioral;
+function function_Or(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector is 
+begin
+	return (data1 or data2);
+end function_Or;
+
+function function_Nor(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector is 
+begin
+	return (data1 nor data2);
+end function_Nor;
+
+end package body Alu;
+
