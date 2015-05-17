@@ -14,7 +14,7 @@ function function_Nor(data1: in std_logic_vector; data2: in std_logic_vector ) r
 	
 end package Alu;
 
-
+--FATT
 package body Alu is
 
 --function function_Name(parameter list) return type is 
