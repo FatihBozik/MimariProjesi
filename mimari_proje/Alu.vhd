@@ -14,7 +14,8 @@ function function_Nor(data1: in std_logic_vector; data2: in std_logic_vector ) r
 	
 end package Alu;
 
---FATT
+
+
 package body Alu is
 
 --function function_Name(parameter list) return type is 
@@ -24,8 +25,8 @@ package body Alu is
 function function_Add(data1: in std_logic_vector; data2: in std_logic_vector) return std_logic_vector is 
 begin
 	if std_logic_vector(signed(data1) + signed(data2)) > max_value or 
-	   std_logic_vector(signed(data1) + signed(data2)) < min_value then  --overflow causes	  
-		return uninitialized; 
+	   std_logic_vector(signed(data1) + signed(data2)) < min_value then  --overflow causes
+	   return uninitialized; 
 	else
 		return std_logic_vector(signed(data1) + signed(data2));
 	end if;
