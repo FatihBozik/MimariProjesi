@@ -8,21 +8,20 @@ use ieee.numeric_std.all;
 use work.Constants.all;
 use work.Alu.all;
 
---StatusRegister = [v, c, n, z]
+-- SR = " V      C 	   N      Z"
+-- SR = SR(0)  SR(1)  SR(2)  SR(3)
 
 entity Main is
    
    port( 
-		 InstructionRegister : in std_logic_vector(width-1 downto 0);
-		 --StatusRegister : in std_logic_vector(3 downto 0); 
-		 programCounter: inout std_logic_vector(width-1 downto 0)
+		 IR : in std_logic_vector(width-1 downto 0);
+		 SR : in std_logic_vector(3 downto 0); 
+		 PC: inout std_logic_vector(width-1 downto 0);
+		 REG : inout register_array
 	   );
 end Main;
 
 architecture Behavioral of Main is
-	-- Register file
-	shared variable reg : register_array;
-	
 	-- R type
 	shared variable rd : std_logic_vector(4 downto 0);
 	shared variable sa : std_logic_vector(4 downto 0);
@@ -34,40 +33,63 @@ architecture Behavioral of Main is
 	
 	-- R type, I type, J type
 	shared variable opcode : std_logic_vector(5 downto 0);
-
 begin
-process(InstructionRegister, programCounter)
+process(IR, PC, REG, SR)
 begin
-	opcode := InstructionRegister(31 downto 26);
+	opcode := IR(31 downto 26);
 	
 	if opcode = "000000" then --R-type komut
-		rs := InstructionRegister(25 downto 21);
-		rt := InstructionRegister(20 downto 16);
-		rd := InstructionRegister(15 downto 11);
-		sa := InstructionRegister(10 downto 6);
-		funcode := InstructionRegister(5 downto 0);
+		rs := IR(25 downto 21);
+		rt := IR(20 downto 16);
+		rd := IR(15 downto 11);
+		sa := IR(10 downto 6);
+		funcode := IR(5 downto 0);
 		
-	    case funcode is
-		    when "100000" => -- ADD funcode=0x20
-				reg(to_integer(unsigned(rd))) := function_Add(reg(to_integer(unsigned(rs))), reg(to_integer(unsigned(rt))));
-				programCounter <= std_logic_vector(unsigned(programCounter) + 4);
-				
-		    when "100010" => -- SUB funcode=0x22
-				reg(to_integer(unsigned(rd))) := function_Sub(reg(to_integer(unsigned(rs))), reg(to_integer(unsigned(rt))));
-				programCounter <= std_logic_vector(unsigned(programCounter) + 4);
-				
-			when "100100" => -- AND funcode=0x24
-				reg(to_integer(unsigned(rd))) := function_And(reg(to_integer(unsigned(rs))), reg(to_integer(unsigned(rt))));
-				programCounter <= std_logic_vector(unsigned(programCounter) + 4);
-				
-			when "100101" => -- OR funcode=0x25	
-				reg(to_integer(unsigned(rd))) := function_Or(reg(to_integer(unsigned(rs))), reg(to_integer(unsigned(rt))));
-				programCounter <= std_logic_vector(unsigned(programCounter) + 4);
-				
-			when "100111" => -- NOR funcode=0x27
-			    reg(to_integer(unsigned(rd))) := function_Nor(reg(to_integer(unsigned(rs))), reg(to_integer(unsigned(rt))));
-				programCounter <= std_logic_vector(unsigned(programCounter) + 4);
+		case funcode is
+			--TODO which defaults to 31
+			when "010110" => -- balrz funcode=0x16 (22)
+			    PC <= std_logic_vector(unsigned(PC) + 4);
+				if SR(3) = '1' then --SR(3) = Z
+					REG(to_integer(unsigned(rd))) <= PC;
+					PC <= REG(to_integer(unsigned(rs)));
+				end if;	
 			
+			--TODO which defaults to 31
+			when "010111" => -- balrn funcode=0x17 (23)
+				PC <= std_logic_vector(unsigned(PC) + 4);
+				if SR(3) = '0' then --SR(3) = Z
+					REG(to_integer(unsigned(rd))) <= PC;
+					PC <= REG(to_integer(unsigned(rs)));
+				end if;	
+				
+		    when "100000" => -- add funcode=0x20 (32)
+				REG(to_integer(unsigned(rd))) <= function_Add(REG(to_integer(unsigned(rs))), REG(to_integer(unsigned(rt))));
+				PC <= std_logic_vector(unsigned(PC) + 4);
+				
+		    when "100010" => -- sub funcode=0x22 (34)
+				REG(to_integer(unsigned(rd))) <= function_Sub(REG(to_integer(unsigned(rs))), REG(to_integer(unsigned(rt))));
+				PC <= std_logic_vector(unsigned(PC) + 4);
+				
+			when "100100" => -- and funcode=0x24 (36)
+				REG(to_integer(unsigned(rd))) <= function_And(REG(to_integer(unsigned(rs))), REG(to_integer(unsigned(rt))));
+				PC <= std_logic_vector(unsigned(PC) + 4);
+				
+			when "100101" => -- or funcode=0x25	(37)
+				REG(to_integer(unsigned(rd))) <= function_Or(REG(to_integer(unsigned(rs))), REG(to_integer(unsigned(rt))));
+				PC <= std_logic_vector(unsigned(PC) + 4);
+				
+			when "100111" => -- nor funcode=0x27 (39)
+			    REG(to_integer(unsigned(rd))) <= function_Nor(REG(to_integer(unsigned(rs))), REG(to_integer(unsigned(rt))));
+				PC <= std_logic_vector(unsigned(PC) + 4);
+			
+			when "101010" => -- slt funcode=0x2a (42)
+				if REG(to_integer(unsigned(rs))) < REG(to_integer(unsigned(rt))) then
+					REG(to_integer(unsigned(rd))) <= one;
+				else
+					REG(to_integer(unsigned(rd))) <= zero;
+				end if;
+				PC <= std_logic_vector(unsigned(PC) + 4);
+	
 			when others =>
 			
 		end case;
@@ -75,9 +97,6 @@ begin
 		
 		
 	end if;
-		
-	
-	
 end process;
 end Behavioral;
 
