@@ -15,7 +15,7 @@ entity Main is
    
    port( 
 		 IR : in std_logic_vector(width-1 downto 0);
-		 SR : in std_logic_vector(3 downto 0); 
+		 SR : inout std_logic_vector(3 downto 0); 
 		 PC: inout std_logic_vector(width-1 downto 0);
 		 REG : inout register_array
 	   );
@@ -46,9 +46,18 @@ begin
 		funcode := IR(5 downto 0);
 		
 		case funcode is
+			when "001000" => -- jr funcode=0x08 (8)
+				REG(to_integer(unsigned(rt))) <= zero; --Reg(Rt) <- 0 kullanýlmýyor.
+				REG(to_integer(unsigned(rd))) <= zero; --Reg(Rd) <- 0 kullanýlmýyor.
+				PC <=  REG(to_integer(unsigned(rs)));  
+			
+			when "001001" => -- jalr funcode=0x09 (9)
+				
+			
 			--TODO which defaults to 31
 			when "010110" => -- balrz funcode=0x16 (22)
-			    PC <= std_logic_vector(unsigned(PC) + 4);
+				PC <= std_logic_vector(unsigned(PC) + 4);
+				REG(to_integer(unsigned(rt))) <= zero;   --Reg(Rt) = 0 kullanýlmýyor.
 				if SR(3) = '1' then --SR(3) = Z
 					REG(to_integer(unsigned(rd))) <= PC;
 					PC <= REG(to_integer(unsigned(rs)));
@@ -57,12 +66,13 @@ begin
 			--TODO which defaults to 31
 			when "010111" => -- balrn funcode=0x17 (23)
 				PC <= std_logic_vector(unsigned(PC) + 4);
+				REG(to_integer(unsigned(rt))) <= X"00000000"; --Reg(Rt) = 0 kullanýlmýyor.
 				if SR(3) = '0' then --SR(3) = Z
 					REG(to_integer(unsigned(rd))) <= PC;
 					PC <= REG(to_integer(unsigned(rs)));
 				end if;	
 				
-		    when "100000" => -- add funcode=0x20 (32)
+			when "100000" => -- add funcode=0x20 (32)
 				REG(to_integer(unsigned(rd))) <= function_Add(REG(to_integer(unsigned(rs))), REG(to_integer(unsigned(rt))));
 				PC <= std_logic_vector(unsigned(PC) + 4);
 				

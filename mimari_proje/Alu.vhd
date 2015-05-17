@@ -6,7 +6,7 @@ use ieee.std_logic_1164.all;
 package Alu is
 
 --function function_Name(parameter list) return type;
-function function_Add(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector;
+function function_Add(data1: in std_logic_vector; data2: in std_logic_vector) return std_logic_vector;
 function function_Sub(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector;	
 function function_And(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector;
 function function_Or(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector;
@@ -23,12 +23,17 @@ package body Alu is
 --end function_Add;
 function function_Add(data1: in std_logic_vector; data2: in std_logic_vector) return std_logic_vector is 
 begin
-	return std_logic_vector(unsigned(data1) + unsigned(data2));
+	if std_logic_vector(signed(data1) + signed(data2)) > max_value or 
+	   std_logic_vector(signed(data1) + signed(data2)) < min_value then  --overflow causes	  
+		return uninitialized; 
+	else
+		return std_logic_vector(signed(data1) + signed(data2));
+	end if;
 end function_Add;
 
 function function_Sub(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector is 
 begin
-	return std_logic_vector(unsigned(data1) - unsigned(data2));
+	return std_logic_vector(signed(data1) - signed(data2));
 end function_Sub;
 
 function function_And(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector is 
