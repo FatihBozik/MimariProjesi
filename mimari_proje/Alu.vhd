@@ -34,7 +34,12 @@ end function_Add;
 
 function function_Sub(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector is 
 begin
-	return std_logic_vector(signed(data1) - signed(data2));
+	if (signed(data1) - signed(data2)) > signed(max_value) or 
+	   (signed(data1) - signed(data2)) < signed(min_value) then  --overflow causes
+	   return uninitialized; 
+	else
+		return std_logic_vector(signed(data1) - signed(data2));
+	end if;
 end function_Sub;
 
 function function_And(data1: in std_logic_vector; data2: in std_logic_vector ) return std_logic_vector is 

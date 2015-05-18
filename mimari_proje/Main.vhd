@@ -52,24 +52,33 @@ begin
 				PC <=  REG(to_integer(unsigned(rs)));  
 			
 			when "001001" => -- jalr funcode=0x09 (9)
-				PC <= std_logic_vector(unsigned(PC) + 4);
+				REG(to_integer(unsigned(rt))) <= zero; --Reg(Rt) <- 0 kullanýlmýyor.	
+				REG(to_integer(unsigned(rd))) <= std_logic_vector(unsigned(PC) + 4);
+				PC <= REG(to_integer(unsigned(rs)));
 				
+			when "010100" => -- brz funcode=0x14 (20)
+				if SR(3) = '1' then --SR(3) = Z
+					PC <= REG(to_integer(unsigned(rs)));
+				end if;
+				
+			when "010101" => -- brn funcode=0x15 (21)
+				if SR(3) = '0' then --SR(3) = Z
+					PC <= REG(to_integer(unsigned(rs)));
+				end if;
 			
 			--TODO which defaults to 31
 			when "010110" => -- balrz funcode=0x16 (22)
-				PC <= std_logic_vector(unsigned(PC) + 4);
 				REG(to_integer(unsigned(rt))) <= zero;   --Reg(Rt) = 0 kullanýlmýyor.
 				if SR(3) = '1' then --SR(3) = Z
-					REG(to_integer(unsigned(rd))) <= PC;
+					REG(to_integer(unsigned(rd))) <= std_logic_vector(unsigned(PC) + 4);
 					PC <= REG(to_integer(unsigned(rs)));
 				end if;	
 			
 			--TODO which defaults to 31
 			when "010111" => -- balrn funcode=0x17 (23)
-				PC <= std_logic_vector(unsigned(PC) + 4);
 				REG(to_integer(unsigned(rt))) <= zero; --Reg(Rt) = 0 kullanýlmýyor.
 				if SR(3) = '0' then --SR(3) = Z
-					REG(to_integer(unsigned(rd))) <= PC;
+					REG(to_integer(unsigned(rd))) <= std_logic_vector(unsigned(PC) + 4);
 					PC <= REG(to_integer(unsigned(rs)));
 				end if;	
 				
@@ -82,6 +91,9 @@ begin
 				
 		    when "100010" => -- sub funcode=0x22 (34)
 				REG(to_integer(unsigned(rd))) <= function_Sub(REG(to_integer(unsigned(rs))), REG(to_integer(unsigned(rt))));
+				if REG(to_integer(unsigned(rd))) = uninitialized then  --overflow causes
+					SR(0) <= '1';
+				end if;
 				PC <= std_logic_vector(unsigned(PC) + 4);
 				
 			when "100100" => -- and funcode=0x24 (36)

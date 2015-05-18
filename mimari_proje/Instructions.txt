@@ -1,0 +1,82 @@
+R-type komutlar
+
+Binary	 : 000000 sssss 00000 00000 00000 001000
+Komut 	 : jr rs
+RTL      : PC <- Reg(Rs);
+Açýklama : Rs registerýndaki adrese dallan
+
+Binary   : 000000 sssss 00000 ddddd 00000 001001
+Komut    : jalr rd, rs
+RTL      : Reg(Rd) <- PC + 4;
+           PC <- Reg(Rs);
+           
+Binary   : 000000 sssss 00000 00000 00000 010100
+Komut    : brz rs
+RTL      : if (Z = 1) {
+              PC <- Reg(Rs);
+           }
+           
+Binary   : 000000 sssss 00000 00000 00000 010101
+Komut    : brn rs
+RTL      : if (Z = 0) {
+              PC <- Reg(Rs);
+           }
+           
+Binary   : 000000 sssss 00000 ddddd 00000 010110
+Komut    : balrz rs, rd
+RTL      : if (Z = 1) {
+              Reg(Rd) <- PC + 4;
+              PC <- Reg(Rs);
+           }
+
+Binary   : 000000 sssss 00000 ddddd 00000 010111
+Komut    : balrn $rs, $rd
+RTL      : if (Z = 0) {
+              Reg(Rd) <- PC + 4;
+              PC <- Reg(Rs);
+           }
+
+Binary   : 000000 sssss ttttt ddddd 00000 100000
+Komut    : add rd, rs, rt
+RTL      : if(is_not_overflow) {
+			 Reg(Rd) <- Reg(Rs) + Reg(Rt);
+			 PC <- PC + 4;
+           }
+
+Binary   : 000000 sssss ttttt ddddd 00000 100010
+Komut    : sub rd, rs, rt
+RTL      : if(is_not_overflow) {
+			 Reg(Rd) <- Reg(Rs) - Reg(Rt);
+			 PC <- PC + 4;
+           }
+
+Binary   : 000000 sssss ttttt ddddd 00000 100100
+Komut    : and rd, rs, rt
+RTL      : Reg(Rd) <- Reg(Rs) and Reg(Rt);
+		   PC <- PC + 4;
+
+Binary   : 000000 sssss ttttt ddddd 00000 100101
+Komut    : or rd, rs, rt
+RTL      : Reg(Rd) <- Reg(Rs) or Reg(Rt);
+		   PC <- PC + 4;
+
+Binary   : 000000 sssss ttttt ddddd 00000 100111
+Komut    : nor rd, rs, rt
+RTL      : Reg(Rd) <- Reg(Rs) nor Reg(Rt);
+		   PC <- PC + 4;
+
+Binary   : 000000 sssss ttttt ddddd 00000 101010
+Komut    : slt rd, rs, rt
+RTL      : Rd <= Reg(Rs) < Reg(Rt ? 1 : 0;
+           PC <- PC + 4;
+
+
+           
+            
+           
+           
+           
+
+
+
+
