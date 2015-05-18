@@ -1,0 +1,13 @@
+J-type komutlar
+
+Binary	 : 000010 iiiiiiiiiiiiiiiiiiiiiiiiii
+Komut 	 : j label
+Açýklama : label ýn adresine dallan
+RTL      : PC <- PC[31:28] || Imm26 ||  00; (concate: +)
+
+Binary	 : 000011 iiiiiiiiiiiiiiiiiiiiiiiiii
+Komut 	 : jal label
+Açýklama : bir sonraki komutun adresini $ra registerýnda sakla ve label ýn adresine dallan
+RTL      : Reg(31) <- PC + 4;
+		   PC <- PC[31:28] || Imm26 ||  00; (concate: +)
+	

@@ -2,28 +2,32 @@ R-type komutlar
 
 Binary	 : 000000 sssss 00000 00000 00000 001000
 Komut 	 : jr rs
-RTL      : PC <- Reg(Rs);
 Açýklama : Rs registerýndaki adrese dallan
+RTL      : PC <- Reg(Rs);
 
 Binary   : 000000 sssss 00000 ddddd 00000 001001
 Komut    : jalr rd, rs
+Açýklama : Bir sonraki komutun adresini Rd adresindeki registerda sakla. Rs registerýnda bulunan adrese dallan.
 RTL      : Reg(Rd) <- PC + 4;
            PC <- Reg(Rs);
            
 Binary   : 000000 sssss 00000 00000 00000 010100
 Komut    : brz rs
+Açýklama : Z = 1 ise Rs adresindeki registera dallan.
 RTL      : if (Z = 1) {
               PC <- Reg(Rs);
            }
            
 Binary   : 000000 sssss 00000 00000 00000 010101
 Komut    : brn rs
+Açýklama : Z = 0 ise Rs adresindeki registera dallan.
 RTL      : if (Z = 0) {
               PC <- Reg(Rs);
            }
            
 Binary   : 000000 sssss 00000 ddddd 00000 010110
 Komut    : balrz rs, rd
+Açýklama : Z = 1 ise bir sonraki komutun adresini Rd adresindeki registerda sakla Rs registerýnda bulunan adrese dallan.
 RTL      : if (Z = 1) {
               Reg(Rd) <- PC + 4;
               PC <- Reg(Rs);
@@ -31,6 +35,7 @@ RTL      : if (Z = 1) {
 
 Binary   : 000000 sssss 00000 ddddd 00000 010111
 Komut    : balrn $rs, $rd
+Açýklama : Z = 0 ise bir sonraki komutun adresini Rd adresindeki registerda sakla Rs registerýnda bulunan adrese dallan.
 RTL      : if (Z = 0) {
               Reg(Rd) <- PC + 4;
               PC <- Reg(Rs);
@@ -38,6 +43,7 @@ RTL      : if (Z = 0) {
 
 Binary   : 000000 sssss ttttt ddddd 00000 100000
 Komut    : add rd, rs, rt
+Açýklama : rs adresindeki register ile rt adresindeki registerý topla sonucu rd adresindeki registera yaz.
 RTL      : if(is_not_overflow) {
 			 Reg(Rd) <- Reg(Rs) + Reg(Rt);
 			 PC <- PC + 4;
@@ -45,6 +51,7 @@ RTL      : if(is_not_overflow) {
 
 Binary   : 000000 sssss ttttt ddddd 00000 100010
 Komut    : sub rd, rs, rt
+Açýklama : rs adresindeki register ile rt adresindeki registerý birbirinden çýkar sonucu rd adresindeki registera yaz.
 RTL      : if(is_not_overflow) {
 			 Reg(Rd) <- Reg(Rs) - Reg(Rt);
 			 PC <- PC + 4;
@@ -52,22 +59,26 @@ RTL      : if(is_not_overflow) {
 
 Binary   : 000000 sssss ttttt ddddd 00000 100100
 Komut    : and rd, rs, rt
+Açýklama : rs adresindeki register ile rt adresindeki registerý and le rd adresindeki registera yaz.
 RTL      : Reg(Rd) <- Reg(Rs) and Reg(Rt);
 		   PC <- PC + 4;
 
 Binary   : 000000 sssss ttttt ddddd 00000 100101
 Komut    : or rd, rs, rt
+Açýklama : rs adresindeki register ile rt adresindeki registerý or la rd adresindeki registera yaz.
 RTL      : Reg(Rd) <- Reg(Rs) or Reg(Rt);
 		   PC <- PC + 4;
 
 Binary   : 000000 sssss ttttt ddddd 00000 100111
 Komut    : nor rd, rs, rt
+Açýklama : rs adresindeki register ile rt adresindeki registerý nor la rd adresindeki registera yaz.
 RTL      : Reg(Rd) <- Reg(Rs) nor Reg(Rt);
 		   PC <- PC + 4;
 
 Binary   : 000000 sssss ttttt ddddd 00000 101010
 Komut    : slt rd, rs, rt
-RTL      : Rd <= Reg(Rs) < Reg(Rt ? 1 : 0;
+Açýklama : Rs adresindeki registerýn deðeri Rt den küçükse Rd 1 olsun. Deðilse 0 olsun.
+RTL      : Rd <= Reg(Rs) < Reg(Rt) ? 1 : 0;
            PC <- PC + 4;
 
 
