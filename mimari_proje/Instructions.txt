@@ -82,7 +82,49 @@ RTL      : Rd <= Reg(Rs) < Reg(Rt) ? 1 : 0;
            PC <- PC + 4;
 
 
+J-type komutlar
+
+
+Binary	 : 000010 iiiiiiiiiiiiiiiiiiiiiiiiii
+Komut 	 : j label
+Açýklama : label ýn adresine dallan
+RTL      : PC <- PC[31:28] || Imm26 ||  00;
+
+Binary	 : 000011 iiiiiiiiiiiiiiiiiiiiiiiiii
+Komut 	 : jal label
+Açýklama : bir sonraki komutun adresini $ra registerýnda sakla ve label ýn adresine dallan
+RTL      : Reg(31) <- PC + 4;
+		   PC <- PC[31:28] || Imm26 ||  00;
+	
+Binary	 : 011000 iiiiiiiiiiiiiiiiiiiiiiiiii
+Komut 	 : bz label
+Açýklama : z = 1 ise label ýn adresine dallan
+RTL      : if(Z = 1) {
+           		PC <- PC[31:28] || Imm26 ||  00;
+           }
+
+Binary	 : 011001 iiiiiiiiiiiiiiiiiiiiiiiiii
+Komut 	 : bn label
+Açýklama : z = 0 ise label ýn adresine dallan
+RTL      : if(Z = 0) {
+           		PC <- PC[31:28] || Imm26 ||  00;
+           }
            
+Binary	 : 011010 iiiiiiiiiiiiiiiiiiiiiiiiii
+Komut 	 : balz label
+Açýklama : z = 1 ise bir sonraki komutun adresini $ra registerýnda sakla ve label ýn adresine dallan
+RTL      : if(Z = 1) {
+           		Reg(31) <- PC + 4;
+		   		PC <- PC[31:28] || Imm26 ||  00;
+           }
+           
+Binary	 : 011011 iiiiiiiiiiiiiiiiiiiiiiiiii
+Komut 	 : baln label
+Açýklama : z = 0 ise bir sonraki komutun adresini $ra registerýnda sakla ve label ýn adresine dallan
+RTL      : if(Z = 0) {
+           		Reg(31) <- PC + 4;
+		   		PC <- PC[31:28] || Imm26 ||  00;
+           }              
             
            
            
