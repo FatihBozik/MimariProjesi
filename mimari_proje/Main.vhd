@@ -12,7 +12,6 @@ use work.Alu.all;
 -- SR = SR(0)  SR(1)  SR(2)  SR(3)
 
 entity Main is
-   
    port( 
 		 IR : in std_logic_vector(width-1 downto 0);
 		 SR : inout std_logic_vector(3 downto 0)	 
@@ -126,14 +125,40 @@ begin
 			
 		end case;
 		
-	elsif opcode = "000010" then -- j funcode=0x02 (2)
+	elsif opcode = "000010" then -- j opcode=0x02 (2)
 		imm_address := IR(25 downto 0);
 		PC := PC(31 downto 28) & imm_address & "00";
 		
-	elsif opcode = "000011"	then -- jal funcode=0x03 (3)
+	elsif opcode = "000011"	then -- jal opcode=0x03 (3)
 		imm_address := IR(25 downto 0);
 		Reg(31) := std_logic_vector(unsigned(PC) + 4);
 		PC := PC(31 downto 28) & imm_address & "00";
+	
+	elsif opcode = "011000" then -- bz opcode=0x18 (24)
+		if SR(3) = '1' then 
+			imm_address := IR(25 downto 0);
+			PC := PC(31 downto 28) & imm_address & "00";
+		end if;
+	
+	elsif opcode = "011001" then -- bn opcode=0x19 (25)
+		if SR(3) = '0' then
+			imm_address := IR(25 downto 0);
+			PC := PC(31 downto 28) & imm_address & "00";
+		end if;
+	
+	elsif opcode = "011010" then -- balz opcode=0x1A (26)
+		if SR(3) = '1' then
+			imm_address := IR(25 downto 0);
+			Reg(31) := std_logic_vector(unsigned(PC) + 4);
+			PC := PC(31 downto 28) & imm_address & "00";
+		end if;
+		
+	elsif opcode = "011011" then -- baln opcode=0x1B (27)
+		if SR(3) = '0' then
+			imm_address := IR(25 downto 0);
+			Reg(31) := std_logic_vector(unsigned(PC) + 4);
+			PC := PC(31 downto 28) & imm_address & "00";
+		end if;
 		
 	end if;
 end process;
