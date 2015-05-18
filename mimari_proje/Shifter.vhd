@@ -1,23 +1,26 @@
---***************--\
--- <SHIFTER.VHD> -- 
---***************--/
-
-entity Shifter is
---	port(
---		
---	);
-end Shifter;
-
-
-
-architecture Behavioral of Shifter is
-begin
-
---process()
---begin
---	
+----***************--\
+---- <SHIFTER.VHD> -- 
+----***************--/
 --
+--library ieee;
+--use ieee.numeric_std.all;
+--use work.Constants.all;
+--use ieee.std_logic_1164.all;
+--
+--package Shifter is
+----function function_Name(parameter list) return type is 
+--
+--function shift_right(x : in std_logic_vector; number : in positive) return std_logic_vector;
 --	
---end process;
-
-end Behavioral;
+--end package Shifter;
+--
+--
+--package body Shifter is
+--
+--function shift_right(x : in std_logic_vector; number : in positive) return std_logic_vector is
+--begin
+--	x := x srl number;
+--	return x;
+--end shift_right;
+--
+--end package body Shifter;

@@ -9,6 +9,10 @@ package Constants is
 --global
 subtype register_s is std_logic_vector(31 downto 0);
 type register_array is array (0 to 31) of register_s;
+
+subtype memory_s is std_logic_vector(7 downto 0);
+type memory_array is array (0 to 2**20 -1) of memory_s;
+	
 constant width : natural := 32;	
 constant regfile_depth : positive := 32;
 constant regfile_adrsize : positive := 5; 
