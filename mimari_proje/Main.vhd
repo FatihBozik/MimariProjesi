@@ -208,13 +208,27 @@ begin
 			end if;
 			PC := std_logic_vector(unsigned(PC) + 4);
 	
-		elsif opcode = "001100" then -- andi opcode=0x0C (12)
+		elsif opcode = "001100" then -- andi opcode=0x0c (12)
 			REG(to_integer(unsigned(rt))) := function_And(REG(to_integer(unsigned(rs))), extend(imm_offset));
 			PC := std_logic_vector(unsigned(PC) + 4);
 	
-		elsif opcode = "001101" then -- ori opcode=0x0D	(13)
+		elsif opcode = "001101" then -- ori opcode=0x0d	(13)
 			REG(to_integer(unsigned(rt))) := function_Or(REG(to_integer(unsigned(rs))), extend(imm_offset));
 			PC := std_logic_vector(unsigned(PC) + 4);
+			
+		elsif opcode = "010010" then -- jm opcode=0x12 (18)
+			PC(31 downto 24) := MEM(to_integer(signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset))));
+			PC(23 downto 16) := MEM(to_integer(1 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset))));
+			PC(15 downto 8) := MEM(to_integer(2 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset))));
+			PC(7 downto 0) := MEM(to_integer(3 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset)))); 
+			
+		elsif opcode = "010011" then -- jalm opcode=0x13 (19)
+			REG(to_integer(unsigned(rt))) := std_logic_vector(unsigned(PC) + 4);
+			PC(31 downto 24) := MEM(to_integer(signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset))));
+			PC(23 downto 16) := MEM(to_integer(1 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset))));
+			PC(15 downto 8) := MEM(to_integer(2 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset))));
+			PC(7 downto 0) := MEM(to_integer(3 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset)))); 
+			
 			
 		elsif opcode = "010100" then -- bmz opcode=0x14 (20)
 			if SR(3) = '1' then
@@ -255,6 +269,43 @@ begin
 				PC(7 downto 0) := MEM(to_integer(3 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset))));
 			else
 				PC := std_logic_vector(unsigned(PC) + 4);
+			end if;
+		
+		elsif opcode = "011110" then -- jpc opcode=0x1E (30)
+			PC := std_logic_vector(signed(PC) + 4 + signed(sign_extend(imm_offset & "00")));
+			
+		elsif opcode = "011111" then -- jalpc opcode=0x1F (31)
+			REG(to_integer(unsigned(rt))) := std_logic_vector(unsigned(PC) + 4);
+			PC := std_logic_vector(signed(PC) + 4 + signed(sign_extend(imm_offset & "00")));
+			
+		elsif opcode = "100011" then -- lw opcode=0x23 (35)
+			REG(to_integer(unsigned(rt)))(31 downto 24) := MEM(to_integer(signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset))));
+		    REG(to_integer(unsigned(rt)))(23 downto 16) := MEM(to_integer(1 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset))));
+		    REG(to_integer(unsigned(rt)))(15 downto 8) := MEM(to_integer(2 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset))));
+		    REG(to_integer(unsigned(rt)))(7 downto 0) := MEM(to_integer(3 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset))));
+		    PC := std_logic_vector(unsigned(PC) + 4);
+		     
+		elsif opcode = "101011" then -- sw opcode=0x2b (43)
+			MEM(to_integer(signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset)))) := REG(to_integer(unsigned(rt)))(31 downto 24);
+		    MEM(to_integer(1 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset)))) := REG(to_integer(unsigned(rt)))(23 downto 16);
+		    MEM(to_integer(2 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset)))) := REG(to_integer(unsigned(rt)))(15 downto 8);
+		    MEM(to_integer(3 + signed(Reg(to_integer(unsigned(rs)))) + signed(sign_extend(imm_offset)))) := REG(to_integer(unsigned(rt)))(7 downto 0);
+		    PC := std_logic_vector(unsigned(PC) + 4);
+		    
+		elsif opcode = "101100" then --beqal opcode=0x2c (44)
+			if REG(to_integer(unsigned(rs))) = REG(to_integer(unsigned(rt))) then
+				Reg(31) := std_logic_vector(unsigned(PC) + 4);
+				PC := std_logic_vector(signed(PC) + 4 + signed(sign_extend(imm_offset & "00")));
+			else
+			    PC := std_logic_vector(unsigned(PC) + 4);
+			end if;
+		
+		elsif opcode = "101101" then --bneal opcode=0x2d (45)
+			if REG(to_integer(unsigned(rs))) /= REG(to_integer(unsigned(rt))) then
+				Reg(31) := std_logic_vector(unsigned(PC) + 4);
+				PC := std_logic_vector(signed(PC) + 4 + signed(sign_extend(imm_offset & "00")));
+			else
+			    PC := std_logic_vector(unsigned(PC) + 4);
 			end if;
 		
 		
