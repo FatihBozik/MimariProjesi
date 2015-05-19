@@ -306,9 +306,7 @@ begin
 				PC := std_logic_vector(signed(PC) + 4 + signed(sign_extend(imm_offset & "00")));
 			else
 			    PC := std_logic_vector(unsigned(PC) + 4);
-			end if;
-		
-		
+			end if;		
 		
 	    end if;
 	    
