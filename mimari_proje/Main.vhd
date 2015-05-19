@@ -56,12 +56,12 @@ begin
 		
 		case funcode is
 			when "001000" => -- jr funcode=0x08 (8)
-				REG(to_integer(unsigned(rt))) := zero; --Reg(Rt) <- 0 kullanýlmýyor.
-				REG(to_integer(unsigned(rd))) := zero; --Reg(Rd) <- 0 kullanýlmýyor.
+				rt := zero5; --Rt <- 0 kullanýlmýyor.
+				rd := zero5; --Rd <- 0 kullanýlmýyor.
 				PC :=  REG(to_integer(unsigned(rs)));  
 			
 			when "001001" => -- jalr funcode=0x09 (9)
-				REG(to_integer(unsigned(rt))) := zero; --Reg(Rt) <- 0 kullanýlmýyor.	
+				rt := zero5; --Rt <- 0 kullanýlmýyor.	
 				REG(to_integer(unsigned(rd))) := std_logic_vector(unsigned(PC) + 4);
 				PC := REG(to_integer(unsigned(rs)));
 				
@@ -81,7 +81,7 @@ begin
 			
 			--TODO which defaults to 31
 			when "010110" => -- balrz funcode=0x16 (22)
-				REG(to_integer(unsigned(rt))) := zero;   --Reg(Rt) = 0 kullanýlmýyor.
+				rt := zero5;   --Rt <- 0 kullanýlmýyor.
 				if SR(3) = '1' then --SR(3) = Z
 					REG(to_integer(unsigned(rd))) := std_logic_vector(unsigned(PC) + 4);
 					PC := REG(to_integer(unsigned(rs)));
@@ -91,7 +91,7 @@ begin
 			
 			--TODO which defaults to 31
 			when "010111" => -- balrn funcode=0x17 (23)
-				REG(to_integer(unsigned(rt))) := zero; --Reg(Rt) = 0 kullanýlmýyor.
+				rt := zero5; --Rt <- 0 kullanýlmýyor.
 				if SR(3) = '0' then --SR(3) = Z
 					REG(to_integer(unsigned(rd))) := std_logic_vector(unsigned(PC) + 4);
 					PC := REG(to_integer(unsigned(rs)));
@@ -129,7 +129,7 @@ begin
 				if REG(to_integer(unsigned(rs))) < REG(to_integer(unsigned(rt))) then
 					REG(to_integer(unsigned(rd))) := one;
 				else
-					REG(to_integer(unsigned(rd))) := zero;
+					REG(to_integer(unsigned(rd))) := zero32;
 				end if;
 				PC := std_logic_vector(unsigned(PC) + 4);
 	
