@@ -14,8 +14,6 @@ subtype memory_s is std_logic_vector(7 downto 0);
 type memory_array is array (0 to 2**20 -1) of memory_s;
 	
 constant width : natural := 32;	
-constant regfile_depth : positive := 32;
-constant regfile_adrsize : positive := 5; 
 constant one : std_logic_vector(31 downto 0) := X"00000001";
 constant zero : std_logic_vector(31 downto 0) := X"00000000";
 constant max_value : std_logic_vector(31 downto 0) := X"7FFFFFFF";
