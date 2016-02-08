@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.2">
+<title>R-type komutlar</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400">
+<link rel="stylesheet" href="https://cdn.rawgit.com/asciidocfx/AsciidocFX/master/src/main/resources/public/css/asciidoctor-default.css">
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="r-type-komutlar"><a class="anchor" href="#r-type-komutlar"></a>R-type komutlar</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. JR komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PC &#8592; Reg(Rs);</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss 00000 00000 00000 001000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jr Rs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rs registerındaki adrese dallan</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. JALR komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reg(Rd) &#8592; PC + 4;<br>
+                   PC &#8592; Reg(Rs);</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss 00000 ddddd 00000 001001</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jalr Rd, Rs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bir sonraki komutun adresini Rd adresindeki registerda                       sakla. Rs registerında bulunan adrese dallan.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 3. BRZ komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if (Z = 1) {<br>
+                      PC &#8592; Reg(Rs);<br>
+                  }<br>
+                  else {<br>
+                      PC &#8592; PC + 4;<br>
+                  }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss 00000 00000 00000 010100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">brz Rs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z = 1 ise Rs adresindeki registera dallan.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 4. BRN komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if (Z = 0) {<br>
+                        PC &#8592; Reg(Rs);<br>
+                   }<br>
+                   else {<br>
+                       PC &#8592; PC + 4;<br>
+                   }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss 00000 00000 00000 010101</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">brn Rs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z = 0 ise Rs adresindeki registera dallan.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 5. BALRZ komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if (Z = 1) {<br>
+                     Reg(Rd) &#8592; PC + 4;<br>
+              PC &#8592; Reg(Rs);<br>
+           }<br>
+           else {<br>
+              PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss 00000 ddddd 00000 010110</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">balrz Rs, Rd</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z = 1 ise bir sonraki komutun adresini Rd adresindeki                          registerda sakla Rs registerında bulunan adrese dallan.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 6. BALRN komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if (Z = 0) {<br>
+                   Reg(Rd) &#8592; PC + 4;<br>
+                   PC &#8592; Reg(Rs);<br>
+                   }<br>
+                  else {<br>
+                     PC &#8592; PC + 4;<br>
+                 }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss 00000 ddddd 00000 010111</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">balrn Rs, Rd</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z = 0 ise bir sonraki komutun adresini Rd adresindeki registerda sakla Rs registerında bulunan adrese dallan.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 7. ADD komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(is_not_overflow) {<br>
+			 Reg(Rd) &#8592; Reg(Rs) + Reg(Rt);<br>
+           }<br>
+           PC &#8592; PC + 4;<br></p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss ttttt ddddd 00000 100000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">add Rd, Rs, Rt</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rs adresindeki register ile rt adresindeki registerı topla sonucu rd adresindeki registera yaz.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 8. SUB komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(is_not_overflow) {<br>
+			 Reg(Rd) &#8592; Reg(Rs) - Reg(Rt);<br>
+           }<br>
+           PC &#8592; PC + 4;<br></p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss ttttt ddddd 00000 100010</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sub Rd, Rs, Rt</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rs adresindeki register ile rt adresindeki registerı birbirinden çıkar sonucu rd adresindeki registera yaz</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 9. AND komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reg(Rd) &#8592; Reg(Rs) and Reg(Rt);<br>
+		   PC &#8592; PC + 4;<br></p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss ttttt ddddd 00000 100100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">and Rd, Rs, Rt</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rs adresindeki register ile rt adresindeki registerı and le rd adresindeki registera yaz.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 10. OR komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reg(Rd) &#8592; Reg(Rs) or Reg(Rt);<br>
+		   PC &#8592; PC + 4;<br></p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss ttttt ddddd 00000 100101</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">or Rd, Rs, Rt</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rs adresindeki register ile rt adresindeki registerı or la rd adresindeki registera yaz.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 11. NOR komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reg(Rd) &#8592; Reg(Rs) nor Reg(Rt);<br>
+		   PC &#8592; PC + 4;<br></p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss ttttt ddddd 00000 100111</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nor Rd, Rs, Rt</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rs adresindeki register ile rt adresindeki registerı nor la rd adresindeki registera yaz.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 12. SLT komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rd &#8656; Reg(Rs) &lt; Reg(Rt) ? 1 : 0;<br>
+           PC &#8592; PC + 4;<br></p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000000 sssss ttttt ddddd 00000 101010</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">slt Rd, Rs, Rt</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rs adresindeki registerın değeri Rt den küçükse Rd 1 olsun. Değilse 0 olsun.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="i-type-komutlar"><a class="anchor" href="#i-type-komutlar"></a>I-type komutlar</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 13. BEQ komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Reg(Rs) = Reg(Rt)) {<br>
+                PC &#8592; PC + 4 + 4×sign_ext(imm16);<br>
+           }<br>
+           else {<br>
+                PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000100 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beq Rs, Rt, imm16</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 14. BNE komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Reg(Rs) != Reg(Rt)) {<br>
+                PC &#8592; PC + 4 + 4×sign_ext(imm16);<br>
+           }<br>
+           else {<br>
+                PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000101 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bne Rs, Rt, imm16</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 15. ADDI komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(is_not_overflow) {<br>
+			 Reg(Rt) &#8592; Reg(Rs) + sign_extend(imm16);<br>
+           }<br>
+           PC &#8592; PC + 4;</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">001000 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">addi Rs, Rt, imm16</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 16. ANDI komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reg(Rt) &#8592; Reg(Rs) and sign_extend(imm16);<br>
+		   PC &#8592; PC + 4;<br></p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">001100 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">andi Rs, Rt, imm16</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 17. ORI komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reg(Rt) &#8592; Reg(Rs) or sign_extend(imm16);<br>
+		   PC &#8592; PC + 4;</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">001101 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ori Rs, Rt, imm16</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 18. JM komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PC &#8592; MEM(Reg(Rs) + sign_extend(imm16));</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">010010 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jm imm16(Rs)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 19. JALM komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reg(Rt) &#8592; PC + 4;<br>
+           PC &#8592; MEM(Reg(Rs) + sign_extend(imm16));</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">010011 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jalm Rt, imm16(Rs)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 20. BMZ komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Z = 1) {<br>
+				PC &#8592; MEM(Reg(Rs) + sign_extend(imm16));<br>
+           }<br>
+           else {<br>
+                PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">010100 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bmz imm16(Rs)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 21. BMN komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Z = 0) {<br>
+				PC &#8592; MEM(Reg(Rs) + sign_extend(imm16));<br>
+           }<br>
+           else {<br>
+                PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">010101 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bmn imm16(Rs)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 22. BALMZ komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Z = 1) {<br>
+				Reg(Rt) &#8592; PC + 4;<br>
+				PC &#8592; MEM(Reg(Rs) + sign_extend(imm16));<br>
+           }<br>
+           else {<br>
+                PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">010110 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">balmz Rt, imm16(Rs)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 23. BALMN komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Z = 0) {<br>
+				Reg(Rt) &#8592; PC + 4;<br>
+				PC &#8592; MEM(Reg(Rs) + sign_extend(imm16));<br>
+           }<br>
+           else {<br>
+                PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">010111 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">balmn Rt, imm16(Rs)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 24. JPC komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PC &#8592; PC + 4 + 4×sign_ext(imm16);</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">011110 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jpc imm16</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 25. JALPC komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reg(Rt) &#8592; PC + 4;<br>
+           PC &#8592; PC + 4 + 4×sign_ext(imm16);</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">011111 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jalpc Rt, imm16</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 26. LW komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reg(Rt) &#8592; MEM(Reg(Rs) + sign_extend(imm16));<br>
+           PC &#8592; PC + 4;</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100011 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lw Rt, imm16(Rs)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 27. SW komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MEM(Reg(Rs) + sign_extend(imm16)) &#8592; Reg(Rt);<br>
+		   PC &#8592; PC + 4;<br></p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">101011 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sw Rt, imm16(Rs)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 28. BEQAL komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Reg(Rs) = Reg(Rt)) {<br>
+                Reg(31) &#8592; PC + 4;<br>
+                PC &#8592; PC + 4 + 4×sign_ext(imm16);<br>
+           }<br>
+           else {<br>
+                PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">101100 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beqal Rs, Rt, imm16</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 29. BNEAL komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Reg(Rs) != Reg(Rt)) {<br>
+                Reg(31) &#8592; PC + 4;<br>
+                PC &#8592; PC + 4 + 4×sign_ext(imm16);<br>
+           }<br>
+           else {<br>
+                PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">101101 sssss ttttt iiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bneal Rs, Rt, imm16</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="j-type-komutlar"><a class="anchor" href="#j-type-komutlar"></a>J-type komutlar</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 30. J komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PC &#8592; PC[31:28] || Imm26 ||  00;</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000010 iiiiiiiiiiiiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">j label</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">label ın adresine dallan</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 31. JAL komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reg(31) &#8592; PC + 4;<br>
+		   PC &#8592; PC[31:28] || Imm26 ||  00;</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">000011 iiiiiiiiiiiiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jal label</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bir sonraki komutun adresini $ra registerında sakla ve label ın adresine dallan</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 32. BZ komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Z = 1) {<br>
+           		PC &#8592; PC[31:28] || Imm26 ||  00;<br>
+           }<br>
+           else {<br>
+           		PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">011000 iiiiiiiiiiiiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bz label</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">z = 1 ise label ın adresine dallan</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 33. BN komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Z = 0) {<br>
+           		PC &#8592; PC[31:28] || Imm26 ||  00;<br>
+           }<br>
+           else {<br>
+           		PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">011001 iiiiiiiiiiiiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bn label</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">z = 0 ise label ın adresine dallan</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 34. BALZ komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Z = 1) {<br>
+           		Reg(31) &#8592; PC + 4;<br>
+		   		PC &#8592; PC[31:28] || Imm26 ||  00;<br>
+           }<br>
+           else {<br>
+           		PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">011010 iiiiiiiiiiiiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">balz label</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">z = 1 ise bir sonraki komutun adresini $ra registerında sakla ve label ın adresine dallan</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 35. BALN komutu</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if(Z = 0) {<br>
+           		Reg(31) &#8592; PC + 4;<br>
+		   		PC &#8592; PC[31:28] || Imm26 ||  00;<br>
+           }<br>
+           else {<br>
+           		PC &#8592; PC + 4;<br>
+           }</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Binary</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">011011 iiiiiiiiiiiiiiiiiiiiiiiiii</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Komut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">baln label</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Açıklama</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">z = 0 ise bir sonraki komutun adresini $ra registerında sakla ve label ın adresine dallan</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>
