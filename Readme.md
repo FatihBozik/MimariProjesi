@@ -8,10 +8,10 @@ Shifter.vhd isminde özel bir dosya yok. Shift işlemleri için main içinde ger
 ```vhdl
 add $s1, $s2, $s3  -- (add $17, $18, $19)
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Çalıştırılmak istenen komut(binary) :** <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;000000 10010 10011 10001 00000 100000 <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Komut sonrası oluşması gereken durum :** <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -	Komut sonrası Reg(17) içindeki değer Reg(18) ile Reg(19) un toplamı olmalıdır. 
+**Çalıştırılmak istenen komut(binary) :** <br/>
+000000 10010 10011 10001 00000 100000 <br/>
+**Komut sonrası oluşması gereken durum :** <br/>
+ -	Komut sonrası Reg(17) içindeki değer Reg(18) ile Reg(19) un toplamı olmalıdır. 
 
 ![Komut 1](/images/1.png)
 
